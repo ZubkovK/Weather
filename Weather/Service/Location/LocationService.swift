@@ -7,21 +7,27 @@
 
 import CoreLocation
 
-class LocationService: NSObject, CLLocationManagerDelegate {
-    let locationManager = CLLocationManager()
+final class LocationService {
     
-    override init() {
-        super.init()
-        locationManager.delegate = self
+    static let shared = LocationService()
+    private let locationManager = CLLocationManager()
+    
+    private init() {
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        locationManager.pausesLocationUpdatesAutomatically = false
+    }
+    
+    func getLocation() -> (lat: Double, lon: Double)? {
+        guard let coordinates = locationManager.location?.coordinate else { return nil }
+        return (coordinates.latitude, coordinates.longitude)
     }
     
     
-    func locationManager(_ manager: CLLocationManager,
-                         didUpdateLocations locations: [CLLocation]) {
-        
-        
-    }
+//    func locationManager(_ manager: CLLocationManager,
+//                         didUpdateLocations locations: [CLLocation]) {
+//        print(manager.location?.coordinate)
+//    }
+    
+    
 }

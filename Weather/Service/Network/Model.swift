@@ -7,24 +7,22 @@
 
 import Foundation
 
-struct ResultIn: Codable {
-    let coord: Сoord
-    let weather: [Weather]
-    let base: String
-    let main: Main
-    let visibility: Int
-    let wind: Wind
+struct CurrentWeather: Codable {
+    let coord: Сoord?
+    let weather: [Weather]?
+    let base: String?
+    let main: Main?
+    let visibility: Int?
+    let wind: Wind?
     let rain: Rain?
     let snow: Snow?
     let clouds: Clouds?
-    let dt: Int
-    let sys: Sys
-    let timezone: Int
+    let dt: Int?
+    let sys: Sys?
+    let timezone: Int?
     let id: Int
     let name: String?
-    let cod: Int
-    
-    
+    let cod: Int?
 }
 
 struct Сoord: Codable {
@@ -34,16 +32,16 @@ struct Сoord: Codable {
 
 struct Weather: Codable {
     let id: Int
-    let main: String
-    let description: String
+    let main: String?
+    let description: String?
     let icon: String?
 }
 
 struct Main: Codable {
-    let temp: Double
-    let feels_like: Double
-    let temp_min: Double
-    let temp_max: Double
+    let temp: Double?
+    let feels_like: Double?
+    let temp_min: Double?
+    let temp_max: Double?
     let pressure: Int?
     let humidity: Int?
 }
@@ -55,22 +53,22 @@ struct Wind: Codable {
 }
 
 struct Rain: Codable {
-    let h1: Double?
-    let h3: Double?
+    let oneHour: Double?
+    let threeHours: Double?
     
     enum CodingKeys: String, CodingKey {
-        case h1 = "1h"
-        case h3 = "3h"
+        case oneHour = "1h"
+        case threeHours = "3h"
     }
 }
 
 struct Snow: Codable {
-    let h1: Double?
-    let h3: Double?
+    let oneHour: Double?
+    let threeHours: Double?
     
     enum CodingKeys: String, CodingKey {
-        case h1 = "1h"
-        case h3 = "3h"
+        case oneHour = "1h"
+        case threeHours = "3h"
     }
 }
 
@@ -79,9 +77,9 @@ struct Clouds: Codable {
 }
 
 struct Sys: Codable {
-    let type: Int
-    let id: Int
-    let country: String
-    let sunrise: Int
-    let sunset: Int
+    let type: Int?
+    let id: Int?
+    let country: String?
+    let sunrise: Int?
+    let sunset: Int?
 }

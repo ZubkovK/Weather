@@ -8,14 +8,24 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
-
-
+    
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        var networkService = NetworkService.sharedi
-        networkService.fetchData()
-       let locationService = LocationService()
+        let location = LocationService.shared.getLocation()
+        
+        guard let location else { return }
+        NetworkService.shared.fetchCurrentWeather(lat: location.lat,
+                                                  lon: location.lon) { result in
+            switch result {
+            case .success(let weather):
+                print(weather)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        let window = UIWindow()
         
         
         guard let _ = (scene as? UIWindowScene) else { return }

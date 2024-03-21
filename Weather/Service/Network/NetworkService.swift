@@ -7,32 +7,45 @@
 
 import Foundation
 
-class NetworkService {
+final class NetworkService {
     
-    static let sharedi = NetworkService()
+    // MARK: - Constants
+    
+    private enum Constants {
+        static let baseUrl = "https://api.openweathermap.org/data/2.5/weather"
+        static let appId = "9ce64653675471ba64294e8f9c8f2713"
+    }
+    
+    static let shared = NetworkService()
     
     private init() {}
     
-    func fetchData() {
-        guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=59.88&lon=30.36&appid=9ce64653675471ba64294e8f9c8f2713&units=metric&lang=ru") else { return }
-        var urlRequest = URLRequest(url: url)
+    func fetchCurrentWeather(lat: Double, 
+                             lon: Double,
+                             completion: @escaping (Result<CurrentWeather, Error>) -> Void) {
+        let stringURL = "\(Constants.baseUrl)?lat=\(lat)&lon=\(lon)&appid=\(Constants.appId)&units=metric&lang=ru"
+        guard let url = URL(string: stringURL) else { return }
+        let urlRequest = URLRequest(url: url)
         DispatchQueue.global().async {
-            let dataTask = URLSession.shared.dataTask(with: urlRequest) { [weak self] data, _, error in
+            URLSession.shared.dataTask(with: urlRequest) { data, _, error in
                 if let error = error {
-                    print(error.localizedDescription)
+                    DispatchQueue.main.async {
+                        completion(.failure(error))
+                    }
                 } else if let data {
                     do {
                         let decoder = JSONDecoder()
-                        let result = try decoder.decode(ResultIn.self, from: data)
+                        let result = try decoder.decode(CurrentWeather.self, from: data)
                         DispatchQueue.main.async {
-                            print(result)
+                            completion(.success(result))
                         }
                     } catch (let error) {
-                        print(error.localizedDescription)
+                        DispatchQueue.main.async {
+                            completion(.failure(error))
+                        }
                     }
                 }
             }.resume()
-            
         }
         
     }
