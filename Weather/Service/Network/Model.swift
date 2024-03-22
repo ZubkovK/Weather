@@ -25,7 +25,7 @@ struct CurrentWeather: Codable {
     let cod: Int?
 }
 
-struct Сoord: Codable {
+struct Coord: Codable {
     let lon: Double
     let lat: Double
 }
