@@ -13,22 +13,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let location = LocationService.shared.getLocation()
         
-        guard let location else { return }
-        NetworkService.shared.fetchCurrentWeather(lat: location.lat,
-                                                  lon: location.lon) { result in
-            switch result {
-            case .success(let weather):
-                print(weather)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-        let window = UIWindow()
+
+        guard let windowScene = (scene as? UIWindowScene) else { return }
         
+        let window = UIWindow(windowScene: windowScene)
+        window.makeKeyAndVisible()
         
-        guard let _ = (scene as? UIWindowScene) else { return }
+        let presenter = CurrentWeatherPresenter()
+        let rootVC = CurrentWeatherViewContoller(presenter: presenter)
+        presenter.view = rootVC
+        let navigationController = UINavigationController(rootViewController: rootVC)
+                window.rootViewController = navigationController
+                self.window = window
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

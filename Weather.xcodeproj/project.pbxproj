@@ -17,6 +17,10 @@
 		F9519CEE2BABE595000EF48F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9519CED2BABE594000EF48F /* Model.swift */; };
 		F9519CF12BAC0F2C000EF48F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9519CF02BAC0F2C000EF48F /* CoreLocation.framework */; };
 		F9519CF52BAC0FF4000EF48F /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9519CF42BAC0FF4000EF48F /* LocationService.swift */; };
+		F9519CF92BACD2BC000EF48F /* CurrentWeatherViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9519CF82BACD2BC000EF48F /* CurrentWeatherViewContoller.swift */; };
+		F9519CFB2BACD374000EF48F /* CurentWeatherPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9519CFA2BACD374000EF48F /* CurentWeatherPresenter.swift */; };
+		F9519CFD2BADF1E3000EF48F /* CurrentWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9519CFC2BADF1E3000EF48F /* CurrentWeatherViewModel.swift */; };
+		F9519CFF2BAE1A46000EF48F /* FiveDaysWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9519CFE2BAE1A46000EF48F /* FiveDaysWeatherModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,10 @@
 		F9519CED2BABE594000EF48F /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		F9519CF02BAC0F2C000EF48F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F9519CF42BAC0FF4000EF48F /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		F9519CF82BACD2BC000EF48F /* CurrentWeatherViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherViewContoller.swift; sourceTree = "<group>"; };
+		F9519CFA2BACD374000EF48F /* CurentWeatherPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurentWeatherPresenter.swift; sourceTree = "<group>"; };
+		F9519CFC2BADF1E3000EF48F /* CurrentWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherViewModel.swift; sourceTree = "<group>"; };
+		F9519CFE2BAE1A46000EF48F /* FiveDaysWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveDaysWeatherModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +74,7 @@
 		F9519CD52BAA2088000EF48F /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				F9519CF62BACD288000EF48F /* Screens */,
 				F9519CF22BAC0FAD000EF48F /* Service */,
 				F9519CD62BAA2088000EF48F /* AppDelegate.swift */,
 				F9519CD82BAA2088000EF48F /* SceneDelegate.swift */,
@@ -83,6 +92,7 @@
 			children = (
 				F9519CEA2BAA21DC000EF48F /* NetworkService.swift */,
 				F9519CED2BABE594000EF48F /* Model.swift */,
+				F9519CFE2BAE1A46000EF48F /* FiveDaysWeatherModel.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -110,6 +120,24 @@
 				F9519CF42BAC0FF4000EF48F /* LocationService.swift */,
 			);
 			path = Location;
+			sourceTree = "<group>";
+		};
+		F9519CF62BACD288000EF48F /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				F9519CF72BACD293000EF48F /* CurentWeather */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		F9519CF72BACD293000EF48F /* CurentWeather */ = {
+			isa = PBXGroup;
+			children = (
+				F9519CF82BACD2BC000EF48F /* CurrentWeatherViewContoller.swift */,
+				F9519CFA2BACD374000EF48F /* CurentWeatherPresenter.swift */,
+				F9519CFC2BADF1E3000EF48F /* CurrentWeatherViewModel.swift */,
+			);
+			path = CurentWeather;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,12 +211,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9519CFD2BADF1E3000EF48F /* CurrentWeatherViewModel.swift in Sources */,
+				F9519CFB2BACD374000EF48F /* CurentWeatherPresenter.swift in Sources */,
+				F9519CFF2BAE1A46000EF48F /* FiveDaysWeatherModel.swift in Sources */,
 				F9519CEE2BABE595000EF48F /* Model.swift in Sources */,
 				F9519CDB2BAA2088000EF48F /* ViewController.swift in Sources */,
 				F9519CD72BAA2088000EF48F /* AppDelegate.swift in Sources */,
 				F9519CEB2BAA21DC000EF48F /* NetworkService.swift in Sources */,
 				F9519CF52BAC0FF4000EF48F /* LocationService.swift in Sources */,
 				F9519CD92BAA2088000EF48F /* SceneDelegate.swift in Sources */,
+				F9519CF92BACD2BC000EF48F /* CurrentWeatherViewContoller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

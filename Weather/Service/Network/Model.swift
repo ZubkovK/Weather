@@ -8,7 +8,7 @@
 import Foundation
 
 struct CurrentWeather: Codable {
-    let coord: Сoord?
+    let coord: Coord?
     let weather: [Weather]?
     let base: String?
     let main: Main?
