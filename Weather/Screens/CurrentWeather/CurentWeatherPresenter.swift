@@ -24,7 +24,7 @@ final class CurrentWeatherPresenter {
     }
     
     
-    // MARK: - Propertie
+    // MARK: - Properties
     
     weak var view: ICurentWeather?
     

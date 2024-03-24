@@ -19,7 +19,7 @@ protocol ICurentWeather: AnyObject {
 }
 
 
-final class CurrentWeatherViewContoller: UIViewController, UITableViewDelegate {
+final class CurrentWeatherViewContoller: UIViewController {
     
     // MARK: - Constants
     
@@ -36,12 +36,11 @@ final class CurrentWeatherViewContoller: UIViewController, UITableViewDelegate {
         static let iconSize: CGFloat = 100
         static let cityNameLabelBottomOffset: CGFloat = 16
         static let smallOffset: CGFloat = 8
-        
-
+        static let cellReuseIdentifier: String = "ForecastWeatherDayCell"
     }
     
     
-    // MARK: - Properies
+    // MARK: - Properties
     
     private let presenter: ICurrentWeatherPresenter
     private var tableViewViewModels = [ForecastWeatherDayCellViewModel]()
@@ -99,9 +98,8 @@ final class CurrentWeatherViewContoller: UIViewController, UITableViewDelegate {
     private lazy var fiveDaysTableView: UITableView = {
         let tableView = UITableView()
         tableView.register(ForecastWeatherDayCell.self,
-                           forCellReuseIdentifier: "ForecastWeatherDayCell")
+                           forCellReuseIdentifier: Constants.cellReuseIdentifier)
         tableView.dataSource = self
-        tableView.delegate = self
         tableView.separatorStyle = .none
         return tableView
     }()
@@ -243,7 +241,7 @@ extension CurrentWeatherViewContoller: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ForecastWeatherDayCell")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellReuseIdentifier)
                 as? ForecastWeatherDayCell else { return UITableViewCell() }
         if tableViewViewModels.count > indexPath.row {
             let viewModel = tableViewViewModels[indexPath.row]
