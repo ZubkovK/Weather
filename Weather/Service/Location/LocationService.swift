@@ -7,15 +7,26 @@
 
 import CoreLocation
 
-final class LocationService {
+protocol LocationServiceDelegate: AnyObject {
+    func didUpdateLocation()
+}
+
+final class LocationService: NSObject {
     
-    static let shared = LocationService()
+    weak var delegate: LocationServiceDelegate?
+    
     private let locationManager = CLLocationManager()
     
-    private init() {
+    override init() {
+        super.init()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        locationManager.delegate = self
+    }
+    
+    func getWasAuthorizationDetermind() -> Bool {
+        return locationManager.authorizationStatus != .notDetermined
     }
     
     func getLocation() -> (lat: Double, lon: Double)? {
@@ -24,10 +35,16 @@ final class LocationService {
     }
     
     
-//    func locationManager(_ manager: CLLocationManager,
-//                         didUpdateLocations locations: [CLLocation]) {
-//        print(manager.location?.coordinate)
-//    }
+}
+
+extension LocationService: CLLocationManagerDelegate {
     
+    // MARK: - CLLocationManagerDelegate
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if getWasAuthorizationDetermind() {
+            delegate?.didUpdateLocation()
+        }
+    }
     
 }

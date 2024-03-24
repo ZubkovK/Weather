@@ -21,6 +21,8 @@
 		F9519CFB2BACD374000EF48F /* CurentWeatherPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9519CFA2BACD374000EF48F /* CurentWeatherPresenter.swift */; };
 		F9519CFD2BADF1E3000EF48F /* CurrentWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9519CFC2BADF1E3000EF48F /* CurrentWeatherViewModel.swift */; };
 		F9519CFF2BAE1A46000EF48F /* FiveDaysWeatherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9519CFE2BAE1A46000EF48F /* FiveDaysWeatherModel.swift */; };
+		F9519D012BAF10A8000EF48F /* ForecastWeatherDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9519D002BAF10A8000EF48F /* ForecastWeatherDayCell.swift */; };
+		F9519D042BB0434F000EF48F /* UIImageView+ShowIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9519D032BB0434F000EF48F /* UIImageView+ShowIcon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		F9519CFA2BACD374000EF48F /* CurentWeatherPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurentWeatherPresenter.swift; sourceTree = "<group>"; };
 		F9519CFC2BADF1E3000EF48F /* CurrentWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherViewModel.swift; sourceTree = "<group>"; };
 		F9519CFE2BAE1A46000EF48F /* FiveDaysWeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiveDaysWeatherModel.swift; sourceTree = "<group>"; };
+		F9519D002BAF10A8000EF48F /* ForecastWeatherDayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastWeatherDayCell.swift; sourceTree = "<group>"; };
+		F9519D032BB0434F000EF48F /* UIImageView+ShowIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+ShowIcon.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 		F9519CD52BAA2088000EF48F /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				F9519D052BB049CD000EF48F /* Model */,
+				F9519D022BB0433C000EF48F /* Helpers */,
 				F9519CF62BACD288000EF48F /* Screens */,
 				F9519CF22BAC0FAD000EF48F /* Service */,
 				F9519CD62BAA2088000EF48F /* AppDelegate.swift */,
@@ -91,8 +97,6 @@
 			isa = PBXGroup;
 			children = (
 				F9519CEA2BAA21DC000EF48F /* NetworkService.swift */,
-				F9519CED2BABE594000EF48F /* Model.swift */,
-				F9519CFE2BAE1A46000EF48F /* FiveDaysWeatherModel.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -125,19 +129,37 @@
 		F9519CF62BACD288000EF48F /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				F9519CF72BACD293000EF48F /* CurentWeather */,
+				F9519CF72BACD293000EF48F /* CurrentWeather */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
 		};
-		F9519CF72BACD293000EF48F /* CurentWeather */ = {
+		F9519CF72BACD293000EF48F /* CurrentWeather */ = {
 			isa = PBXGroup;
 			children = (
 				F9519CF82BACD2BC000EF48F /* CurrentWeatherViewContoller.swift */,
 				F9519CFA2BACD374000EF48F /* CurentWeatherPresenter.swift */,
 				F9519CFC2BADF1E3000EF48F /* CurrentWeatherViewModel.swift */,
+				F9519D002BAF10A8000EF48F /* ForecastWeatherDayCell.swift */,
 			);
-			path = CurentWeather;
+			path = CurrentWeather;
+			sourceTree = "<group>";
+		};
+		F9519D022BB0433C000EF48F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F9519D032BB0434F000EF48F /* UIImageView+ShowIcon.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F9519D052BB049CD000EF48F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F9519CFE2BAE1A46000EF48F /* FiveDaysWeatherModel.swift */,
+				F9519CED2BABE594000EF48F /* Model.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,9 +233,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9519D012BAF10A8000EF48F /* ForecastWeatherDayCell.swift in Sources */,
 				F9519CFD2BADF1E3000EF48F /* CurrentWeatherViewModel.swift in Sources */,
 				F9519CFB2BACD374000EF48F /* CurentWeatherPresenter.swift in Sources */,
 				F9519CFF2BAE1A46000EF48F /* FiveDaysWeatherModel.swift in Sources */,
+				F9519D042BB0434F000EF48F /* UIImageView+ShowIcon.swift in Sources */,
 				F9519CEE2BABE595000EF48F /* Model.swift in Sources */,
 				F9519CDB2BAA2088000EF48F /* ViewController.swift in Sources */,
 				F9519CD72BAA2088000EF48F /* AppDelegate.swift in Sources */,
