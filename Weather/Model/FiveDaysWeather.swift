@@ -1,5 +1,5 @@
 //
-//  ModelFiveDays.swift
+//  FiveDaysWeather.swift
 //  Weather
 //
 //  Created by Кирилл Зубков on 22.03.2024.

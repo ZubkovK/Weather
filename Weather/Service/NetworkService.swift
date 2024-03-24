@@ -24,9 +24,18 @@ final class NetworkService {
         static let appId = "9ce64653675471ba64294e8f9c8f2713"
     }
     
+    
+    // MARK: - Properties
+    
     static let shared = NetworkService()
     
+    
+    // MARK: - Init
+    
     private init() {}
+    
+    
+    // MARK: - Interface
     
     func fetchCurrentWeather(type: WeatherFetchType,
                              completion: @escaping (Result<CurrentWeather, Error>) -> Void) {

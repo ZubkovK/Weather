@@ -14,26 +14,32 @@ struct ForecastWeatherDayCellViewModel {
     let icon: String?
 }
 
-class ForecastWeatherDayCell: UITableViewCell {
+final class ForecastWeatherDayCell: UITableViewCell {
     
     // MARK: - Constants
     
     private enum Constants {
+        
+        static let dateFont: UIFont = UIFont.systemFont(ofSize: 20)
+        static let temperatureFont: UIFont = UIFont.systemFont(ofSize: 34)
         static let iconSize: CGFloat = 80
+        static let smallOffset: CGFloat = 8
+        static let mediumOffset: CGFloat = 10
+        static let dateLeadingOffset: CGFloat = 20
     }
     
     
-    // MARK: - Properties
+    // MARK: - Views
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = Constants.dateFont
         return label
     }()
     
     private let temperatureLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 34)
+        label.font = Constants.temperatureFont
         return label
     }()
     
@@ -75,6 +81,8 @@ class ForecastWeatherDayCell: UITableViewCell {
         formatter.locale = Locale(identifier: "ru_Ru")
         dateLabel.text = formatter.string(from: date)
     }
+    
+    
     // MARK: - Private Methods
     
     private func addViews() {
@@ -82,25 +90,27 @@ class ForecastWeatherDayCell: UITableViewCell {
         contentView.addSubview(temperatureLabel)
         contentView.addSubview(iconImageView)
     }
+    
     private func addConstaints() {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20)
+        dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Constants.dateLeadingOffset)
             .isActive = true
         dateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
         temperatureLabel.leadingAnchor.constraint(greaterThanOrEqualTo: dateLabel.trailingAnchor,
-                                                  constant: 10).isActive = true
+                                                  constant: Constants.mediumOffset).isActive = true
         temperatureLabel.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor).isActive = true
         
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         
         
         iconImageView.leadingAnchor.constraint(equalTo: temperatureLabel.trailingAnchor).isActive = true
-        iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        iconImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Constants.mediumOffset).isActive = true
+        iconImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Constants.mediumOffset).isActive = true
         iconImageView.widthAnchor.constraint(equalTo: iconImageView.heightAnchor).isActive = true
-        iconImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8).isActive = true
+        iconImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Constants.smallOffset).isActive = true
         iconImageView.heightAnchor.constraint(equalToConstant: Constants.iconSize).isActive = true
     }
+    
 }

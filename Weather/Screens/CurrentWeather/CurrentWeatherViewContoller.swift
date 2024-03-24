@@ -9,15 +9,45 @@ import Foundation
 import UIKit
 
 protocol ICurentWeather: AnyObject {
+  
+   // MARK: - Protocol
+    
     func display(model: CurrentWeatherViewModel)
     func showActivityIndicator()
     func hideActivityIndicator()
+    
 }
 
 
-final class CurrentWeatherViewContoller: UIViewController {
+final class CurrentWeatherViewContoller: UIViewController, UITableViewDelegate {
+    
+    // MARK: - Constants
+    
+    private enum Constants {
+        static let temperatureFont: UIFont = UIFont.systemFont(ofSize: 68)
+        static let cityNameFont: UIFont = UIFont.systemFont(ofSize: 30)
+        static let additionalFont: UIFont = UIFont.systemFont(ofSize: 24)
+        static let backgroundColor: UIColor = UIColor(red: 56/255,
+                                                      green: 203/255,
+                                                      blue: 252/255,
+                                                      alpha: 1)
+        static let weatherContainerBottomOffset: CGFloat = -40
+        static let temperatureLabelOffset: CGFloat = 30
+        static let iconSize: CGFloat = 100
+        static let cityNameLabelBottomOffset: CGFloat = 16
+        static let smallOffset: CGFloat = 8
+        
+
+    }
+    
     
     // MARK: - Properies
+    
+    private let presenter: ICurrentWeatherPresenter
+    private var tableViewViewModels = [ForecastWeatherDayCellViewModel]()
+    
+    
+    // MARK: - Views
     
     private let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
@@ -28,38 +58,36 @@ final class CurrentWeatherViewContoller: UIViewController {
     
     private let temperatureLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 68)
+        label.font = Constants.temperatureFont
         label.textColor = .white
         return label
     }()
     
     private let cityNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 30)
+        label.font = Constants.cityNameFont
+        label.numberOfLines = .zero
         label.textColor = .white
         return label
     }()
     
     private let weatherStateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24)
+        label.font = Constants.additionalFont
         label.textColor = .white
         return label
     }()
     
     private let temperatureFeelLikesLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24)
+        label.font = Constants.additionalFont
         label.textColor = .white
         return label
     }()
     
     private var currentWeatherContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 56/255,
-                                       green: 203/255,
-                                       blue: 252/255,
-                                       alpha: 1)
+        view.backgroundColor = Constants.backgroundColor
         return view
     }()
     
@@ -77,9 +105,6 @@ final class CurrentWeatherViewContoller: UIViewController {
         tableView.separatorStyle = .none
         return tableView
     }()
-    
-    private let presenter: ICurrentWeatherPresenter
-    private var tableViewViewModels = [ForecastWeatherDayCellViewModel]()
    
     
     // MARK: - Init
@@ -94,7 +119,7 @@ final class CurrentWeatherViewContoller: UIViewController {
     }
     
     
-    // MARK: - viewDidLoad
+    // MARK: - Overrides
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,35 +150,45 @@ final class CurrentWeatherViewContoller: UIViewController {
         currentWeatherContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         currentWeatherContainerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         currentWeatherContainerView.bottomAnchor.constraint(equalTo: view.centerYAnchor,
-                                                            constant: -40).isActive = true
+                                                            constant: Constants.weatherContainerBottomOffset).isActive = true
         
         activityIndicator.translatesAutoresizingMaskIntoConstraints =  false
-        activityIndicator.centerYAnchor.constraint(equalTo: currentWeatherContainerView.centerYAnchor).isActive = true
-        activityIndicator.centerXAnchor.constraint(equalTo: currentWeatherContainerView.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor
+            .constraint(equalTo: currentWeatherContainerView.centerYAnchor).isActive = true
+        activityIndicator.centerXAnchor
+            .constraint(equalTo: currentWeatherContainerView.centerXAnchor).isActive = true
         
         temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
         temperatureLabel.centerXAnchor.constraint(equalTo: currentWeatherContainerView.centerXAnchor,
-                                                  constant: -30 ).isActive = true
+                                                  constant: -Constants.temperatureLabelOffset).isActive = true
         temperatureLabel.centerYAnchor.constraint(equalTo: currentWeatherContainerView.centerYAnchor).isActive = true
         
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         iconImageView.leadingAnchor.constraint(equalTo: temperatureLabel.trailingAnchor).isActive = true
         iconImageView.centerYAnchor.constraint(equalTo: temperatureLabel.centerYAnchor).isActive = true
-        iconImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        iconImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        iconImageView.widthAnchor.constraint(equalToConstant: Constants.iconSize).isActive = true
+        iconImageView.heightAnchor.constraint(equalToConstant: Constants.iconSize).isActive = true
         
         cityNameLabel.translatesAutoresizingMaskIntoConstraints = false
         cityNameLabel.centerXAnchor.constraint(equalTo: currentWeatherContainerView.centerXAnchor).isActive = true
-        cityNameLabel.bottomAnchor.constraint(equalTo: temperatureLabel.topAnchor, constant: -16).isActive = true
+        cityNameLabel.bottomAnchor.constraint(equalTo: temperatureLabel.topAnchor,
+                                              constant: -Constants.cityNameLabelBottomOffset).isActive = true
+        cityNameLabel.leadingAnchor.constraint(greaterThanOrEqualTo: currentWeatherContainerView.leadingAnchor,
+                                               constant: Constants.smallOffset).isActive = true
+        cityNameLabel.trailingAnchor.constraint(lessThanOrEqualTo: currentWeatherContainerView.trailingAnchor,
+                                                constant: -Constants.smallOffset).isActive = true
         
         weatherStateLabel.translatesAutoresizingMaskIntoConstraints = false
-        weatherStateLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor, constant: 8).isActive = true
-        weatherStateLabel.centerXAnchor.constraint(equalTo: currentWeatherContainerView.centerXAnchor).isActive = true
+        weatherStateLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor,
+                                               constant: Constants.smallOffset).isActive = true
+        weatherStateLabel.centerXAnchor
+            .constraint(equalTo: currentWeatherContainerView.centerXAnchor).isActive = true
         
         temperatureFeelLikesLabel.translatesAutoresizingMaskIntoConstraints = false
         temperatureFeelLikesLabel.topAnchor.constraint(equalTo: weatherStateLabel.bottomAnchor, 
-                                                       constant: 8).isActive = true
-        temperatureFeelLikesLabel.centerXAnchor.constraint(equalTo: currentWeatherContainerView.centerXAnchor).isActive = true
+                                                       constant: Constants.smallOffset).isActive = true
+        temperatureFeelLikesLabel.centerXAnchor
+            .constraint(equalTo: currentWeatherContainerView.centerXAnchor).isActive = true
         
         fiveDaysTableView.translatesAutoresizingMaskIntoConstraints = false
         fiveDaysTableView.topAnchor.constraint(equalTo: currentWeatherContainerView.bottomAnchor).isActive = true
@@ -216,11 +251,5 @@ extension CurrentWeatherViewContoller: UITableViewDataSource {
         }
         return cell
     }
-    
-    
+  
 }
-
-extension CurrentWeatherViewContoller: UITableViewDelegate {
-    
-}
-
